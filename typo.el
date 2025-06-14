@@ -312,7 +312,8 @@ marks will be inserted."
   (interactive "P")
   (if (or arg
           (typo-electricity-disabled-p)
-          (funcall (alist-get major-mode typo-fancify-exception-par-mode)))
+          (if-let ((f (alist-get major-mode typo-fancify-exception-par-mode)))
+               (funcall f)))
       (call-interactively 'self-insert-command)
     (let* ((double-open (typo-open-double-quotation-mark))
            (double-close (typo-close-double-quotation-mark))
@@ -399,7 +400,8 @@ CYCLE is a list of strings to cycle through."
      (interactive "P")
      (if (or arg
              (typo-electricity-disabled-p)
-             (funcall (alist-get major-mode typo-fancify-exception-par-mode)))
+             (if-let ((f (alist-get major-mode typo-fancify-exception-par-mode)))
+               (funcall f)))
          (call-interactively 'self-insert-command)
        (typo-insert-cycle ',cycle))))
 
